@@ -32,4 +32,10 @@ public class CourseController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/courses")
+    public List<CourseDTO> getAllCourses() {
+        return service.findAll();
+    }
+
 }
