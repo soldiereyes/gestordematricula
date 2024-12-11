@@ -32,4 +32,10 @@ public class StudentController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/students")
+    public List<StudentDTO> getAllStudents() {
+        return service.findAll();
+    }
+
 }
