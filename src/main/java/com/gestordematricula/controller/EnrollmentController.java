@@ -1,6 +1,7 @@
 package com.gestordematricula.controller;
 
 import com.gestordematricula.dto.EnrollmentDTO;
+import com.gestordematricula.dto.StudentWithCoursesDTO;
 import com.gestordematricula.service.EnrollmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +32,9 @@ public class EnrollmentController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/students-with-courses")
+    public List<StudentWithCoursesDTO> getStudentsWithCourses() {
+        return service.getStudentsWithCourses();
     }
 }
