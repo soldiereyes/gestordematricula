@@ -1,6 +1,7 @@
 package com.gestordematricula.service;
 
 import com.gestordematricula.dto.EnrollmentDTO;
+import com.gestordematricula.dto.StudentWithCoursesDTO;
 import com.gestordematricula.model.Course;
 import com.gestordematricula.model.Enrollment;
 import com.gestordematricula.model.Student;
@@ -54,4 +55,19 @@ public class EnrollmentService {
     public void delete(UUID id) {
         repository.deleteById(id);
     }
+
+    public List<StudentWithCoursesDTO> getStudentsWithCourses() {
+        List<Student> students = studentRepository.findAll();
+
+        return students.stream()
+                .map(student -> {
+                    List<String> courses = repository.findByStudent(student).stream()
+                            .map(enrollment -> enrollment.getCourse().getName())
+                            .collect(Collectors.toList());
+
+                    return new StudentWithCoursesDTO(student.getName(), courses);
+                })
+                .collect(Collectors.toList());
+    }
+
 }
